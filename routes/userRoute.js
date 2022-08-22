@@ -35,7 +35,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
     const {
       user_id,
-      name,
+      fullname,
       email,
       password,
       role,
@@ -44,7 +44,7 @@ router.post("/", (req, res) => {
     } = req.body;
     try {
       con.query(
-        `INSERT INTO users (user_id,name,email,password,role,joinDate) VALUES ("${user_id}","${email}", "${password}", "${name}", "${role}", "${joinDate}")`,
+        `INSERT INTO users (user_id,fullname,email,password,role,joinDate) VALUES ("${user_id}","${email}", "${password}", "${fullname}", "${role}", "${joinDate}")`,
         (err, result) => {
           if (err) throw err;
           res.send(result);
