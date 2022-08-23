@@ -150,36 +150,36 @@ router.post("/register", (req, res) => {
 
 // Login
 // The Route where Decryption happens
-router.post("/login", (req, res) => {
-  try {
-    let sql = "SELECT * FROM users WHERE ?";
-    let user = {
-      email: req.body.email,
-    };
-    con.query(sql, user, async (err, result) => {
-      if (err) throw err;
-      if (result.length === 0) {
-        res.send("Email not found please register");
-      } else {
-        // Decryption
-        // Accepts the password stored in database and the password given by user (req.body)
-        const isMatch = await bcrypt.compare(
-          req.body.password,
-          result[0].password
-        );
-        // If password does not match
-        if (!isMatch) {
-          res.send("Password incorrect");
-        }
-        else {
-          res.send(result)
-        }
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
+// router.post("/login", (req, res) => {
+//   try {
+//     let sql = "SELECT * FROM users WHERE ?";
+//     let user = {
+//       email: req.body.email,
+//     };
+//     con.query(sql, user, async (err, result) => {
+//       if (err) throw err;
+//       if (result.length === 0) {
+//         res.send("Email not found please register");
+//       } else {
+//         // Decryption
+//         // Accepts the password stored in database and the password given by user (req.body)
+//         const isMatch = await bcrypt.compare(
+//           req.body.password,
+//           result[0].password
+//         );
+//         // If password does not match
+//         if (!isMatch) {
+//           res.send("Password incorrect");
+//         }
+//         else {
+//           res.send(result)
+//         }
+//       }
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
  // Login
   // The Route where Decryption happens
@@ -204,10 +204,13 @@ router.post("/login", (req, res) => {
             // The information the should be stored inside token
             const payload = {
               user: {
-                id: result[0].id,
-                full_name: result[0].full_name,
+                user_id: result[0].user_id,
+                fullname: result[0].fullname,
                 email: result[0].email,
-                user_type: result[0].user_type,
+                password: result[0].password,
+                joinDate: result[0].joinDate,
+              cart: result[0].cart,
+              
               },
             };
             // Creating a token and setting expiry date
