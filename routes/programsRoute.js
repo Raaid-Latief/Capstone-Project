@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
     } = req.body;
     try {
       con.query(
-        `INSERT INTO programs ( program_id,category,title,description,imgURL,gender,price) VALUES ("${program_id}","${category}","${title}","${description}", "${imgURL}", "${gender}", "${gender}")`,
+        `INSERT INTO programs ( program_id,category,title,description,imgURL,gender,price) VALUES ("${program_id}","${category}","${title}","${description}", "${imgURL}", "${gender}", "${price}")`,
         (err, result) => {
           if (err) throw err;
           res.send(result);
