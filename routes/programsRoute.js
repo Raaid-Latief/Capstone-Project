@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 
 
-//Get one album by the ID
+//Get one program by the ID
 router.get("/:id", (req, res) => {
   try {
     con.query(
@@ -35,7 +35,7 @@ router.get("/:id", (req, res) => {
 //ADDING A NEW POST
 router.post("/", (req, res) => {
     const {
-      program_id,
+      
       category,
       title,
       description,
@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
     } = req.body;
     try {
       con.query(
-        `INSERT INTO programs ( program_id,category,title,description,imgURL,gender,price) VALUES ("${program_id}","${category}","${title}","${description}", "${imgURL}", "${gender}", "${price}")`,
+        `INSERT INTO programs (category,title,description,imgURL,gender,price) VALUES ("${category}","${title}","${description}", "${imgURL}", "${gender}", "${price}")`,
         (err, result) => {
           if (err) throw err;
           res.send(result);
@@ -57,6 +57,34 @@ router.post("/", (req, res) => {
       res.status(400).send(error);
     }
   });
+
+// UPDATE
+router.put("/:id", (req, res) => {
+  const {
+  
+    category,
+    title,
+    description,
+   imgURL,
+   gender,
+   price,
+  } = req.body;
+  try {
+    con.query(
+      `UPDATE programs SET category = "${category}", title = "${title}", description = "${description}",  imgURL = "${imgURL}", gender = "${gender}", price = "${price}"
+       WHERE program_id=${req.params.id}`,
+      (err, result) => {
+        if (err) throw err;
+        res.send(result);
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+});
+
+
 
 //   DELETE BY ID
   router.delete("/:id", (req, res) => {
