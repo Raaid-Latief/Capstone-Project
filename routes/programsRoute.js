@@ -33,16 +33,14 @@ router.get("/:id", (req, res) => {
 });
 
 //ADDING A NEW POST
-router.post("/", (req, res) => {
+router.post("/",  (req, res) => {
     const {
-      
       category,
       title,
       description,
      imgURL,
      gender,
      price,
-     
     } = req.body;
     try {
       con.query(

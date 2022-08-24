@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
 });
 
 //ADDING A NEW POST
-router.post("/", (req, res) => {
+router.post("/", middleware, (req, res) => {
   const {
     
     fullname,
@@ -62,7 +62,7 @@ router.post("/", (req, res) => {
 
 
 // UPDATE
-router.put("/:id", (req, res) => {
+router.put("/:id", middleware, (req, res) => {
   const {
   
     fullname,
@@ -88,7 +88,7 @@ router.put("/:id", (req, res) => {
 });
 
 // DELETE USER BY ID
-router.delete("/:id", (req, res) => {
+router.delete("/:id", middleware, (req, res) => {
   try {
     con.query(
       `DELETE FROM users WHERE user_id=${req.params.id};
@@ -116,6 +116,7 @@ router.post("/register", (req, res) => {
   try {
     let sql = "INSERT INTO users SET ?";
     const {
+      user_id,
       fullname,
       email,
       password,
@@ -129,6 +130,7 @@ router.post("/register", (req, res) => {
     const hash = bcrypt.hashSync(password, salt);
 
     let user = {
+      user_id,
       fullname,
       email,
       // We sending the hash value to be stored witin the table
@@ -140,7 +142,7 @@ router.post("/register", (req, res) => {
     con.query(sql, user, (err, result) => {
       if (err) throw err;
       console.log(result);
-      res.send(`User ${(user.full_name, user.email)} created successfully`);
+      res.send(`User ${(user.fullname, user.email)} created successfully`);
     });
   } catch (error) {
     console.log(error);
@@ -258,6 +260,7 @@ try {
   console.log(error);
 }
 });
+
 module.exports = router;
 
 
