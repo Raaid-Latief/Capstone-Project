@@ -5,6 +5,7 @@ require("dotenv").config();
 // Import routes
 const userRoute = require("./routes/userRoute");
 const programsRoute = require("./routes/programsRoute");
+const plansRoute = require("./routes/plansRoute");
 
 
 
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 // Use individual routes when visiting these URLS
 app.use("/users", userRoute);
 app.use("/programs", programsRoute);
+app.use("/plans", plansRoute);
 
 
 
