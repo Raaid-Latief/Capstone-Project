@@ -5,7 +5,7 @@ let programs = [];
 const userContainer = document.getElementById("users");
 const prodContainer = document.getElementById("programs");
 
-fetch('http://localhost:6969/users')
+fetch('https://capstone-raaid.herokuapp.com/users')
   .then((res) => res.json())
   .then((data) => {
     users = data;
@@ -35,7 +35,7 @@ function showUsers(users) {
 }
 
 
-fetch('http://localhost:6969/programs')
+fetch('https://capstone-raaid.herokuapp.com/programs')
   .then((res) => res.json())
   .then((data) => {
     items = data;
@@ -68,7 +68,7 @@ function showItems(programs) {
 async function Login(e) {
   e.preventDefault();
   const response = await fetch(
-    "https://foot-locker.herokuapp.com/users/login",
+    "https://localhost:6969/users/login",
     {
       method: "POST",
       body: JSON.stringify({
