@@ -42,12 +42,11 @@ router.post("/", middleware, (req, res) => {
     password,
     role,
     joinDate,
-    cart
 
   } = req.body;
   try {
     con.query(
-      `INSERT INTO users (fullname,email,password,role,joinDate,cart) VALUES ("${email}", "${password}", "${fullname}", "${role}", "${joinDate}" , "${cart}")`,
+      `INSERT INTO users (fullname,email,password,role,joinDate) VALUES ("${email}", "${password}", "${fullname}", "${role}", "${joinDate}")`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
@@ -116,13 +115,11 @@ router.post("/register", (req, res) => {
   try {
     let sql = "INSERT INTO users SET ?";
     const {
-      user_id,
       fullname,
       email,
       password,
-    role,
-    joinDate,
-    cart
+      joinDate,
+      role,
     } = req.body;
 
     // The start of hashing / encryption
@@ -130,14 +127,13 @@ router.post("/register", (req, res) => {
     const hash = bcrypt.hashSync(password, salt);
 
     let user = {
-      user_id,
       fullname,
       email,
       // We sending the hash value to be stored witin the table
       password: hash,
-   role,
    joinDate,
-   cart
+   role,
+  
     };
     con.query(sql, user, (err, result) => {
       if (err) throw err;
@@ -332,7 +328,7 @@ router.put('reset-psw/:id', (req, res) => {
       const updatedPassword = {
         user_id: result[0].user_id,
         fullname: result[0].fullname,
-        email: result[0].email,
+        email: result[0].email,                                       
         joinDate: result[0].joinDate,
       cart: result[0].cart,
 
