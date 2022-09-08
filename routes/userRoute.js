@@ -90,8 +90,7 @@ router.put("/:id", middleware, (req, res) => {
 router.delete("/:id", middleware, (req, res) => {
   try {
     con.query(
-      `DELETE FROM users WHERE user_id=${req.params.id};
-      ALTER TABLE programs AUTO_INCREMENT = 1`,
+      `DELETE FROM users WHERE user_id=${req.params.id};`,
       (err, result) => {
         if (err) throw err;
         res.send(result);
